@@ -44,7 +44,7 @@ void init(int& shmid, int& msqid, void*& sharedMemPtr)
 
 	
 	/* TODO: Get the id of the shared memory segment. The size of the segment must be SHARED_MEMORY_CHUNK_SIZE */
-	shmid = shmget(key, SHARED_MEMORY_CHUNK_SIZE, S_IRUSER| S_IWUSR | IPC_CREAT);
+	shmid = shmget(key, SHARED_MEMORY_CHUNK_SIZE, 0666 |IPC_CREAT);
 	if(shmid < 0)
 	{
 		perror("shmget");
