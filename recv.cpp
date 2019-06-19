@@ -19,33 +19,33 @@ int shmid, msqid;
 /* The pointer to the shared memory */
 void *sharedMemPtr = NULL;
 
-const char recvFileName[] = "recvfile";
+const char recvFileNamearray[] = "recvfile";
 
 ///**
 // * The function for receiving the name of the file
 // * @return - the name of the file received from the sender
 // */
-//string recvFileName()
-//{
-//	/* The file name received from the sender */
-//	string fileName;
-//        
-//	/* TODO: declare an instance of the fileNameMsg struct to be
-//	 * used for holding the message received from the sender.
-//     */
-//	
-//	fileName msg = "";
-//
-//        /* TODO: Receive the file name using msgrcv() */
-//	if(msgrcv(msqid, &msg, sizeof(fileNameMsg) - sizeof(long), FILE_NAME_TRANSFER_TYPE, 0) < 0)
-//	{
-//		perror("msgsnd");
-//		exit(-1);
-//	}
-//	/* TODO: return the received file name */
-//	fileName = msg.fileName;
-//    return fileName;
-//}
+string recvFileName()
+{
+	/* The file name received from the sender */
+	string fileName;
+      
+	// TODO: declare an instance of the fileNameMsg struct to be
+	 // used for holding the message received from the sender.
+     
+	
+	fileNameMsg msg;
+
+        /* TODO: Receive the file name using msgrcv() */
+	if(msgrcv(msqid, &msg, sizeof(fileNameMsg) - sizeof(long), FILE_NAME_TRANSFER_TYPE, 0) < 0)
+	{
+		perror("msgsnd");
+		exit(-1);
+	}
+	/* TODO: return the received file name */
+	fileName = msg.fileName;
+    return fileName;
+}
 
  /**
  * Sets up the shared memory segment and message queue
@@ -118,7 +118,7 @@ void mainLoop()
 	int msgSize = 0;
 	
 	/* Open the file for writing */
-	FILE* fp = fopen(recvFileName, "w");
+	FILE* fp = fopen(recvFileNamearray, "w");
 	
 	/* The number of bytes received */
 	int numBytesRecv = 0;
