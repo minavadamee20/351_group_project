@@ -22,8 +22,6 @@ int msqid;
 //pointer to shared memory 
 void *sharedMemPtr = NULL;
 
-const char recvFileNamearray[] = "recvfile";
-
 //receives name of file
 string recvFileName()
 {
