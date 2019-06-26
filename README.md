@@ -13,4 +13,4 @@ How to Run this Program:
 6. run "cat recvfile" to ensure file sent. 
 
 How Our Team Collaborated on this Project: 
-We both worked on this project together. We went over the TODO comments together and filled out the functions as a team. 
+We both worked on this project together. We went over the TODO comments together and filled out the functions as a team. Samantha mostly worked on the sender file while Mina worked on the reciever file. We made sure that we used the same variables to stay consistent throughout the entirety of the project. We filled out the same functions on different files to ensure both files matched where they needed to. 
