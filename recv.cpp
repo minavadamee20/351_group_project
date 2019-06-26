@@ -85,22 +85,23 @@ void init(int& shmid, int& msqid, void*& sharedMemPtr)
 	}
 }
 
-void mainLoop()
+unsigned long mainLoop(const char* fileName)
 {
-	//message received from sender
-	int msgSize = 0;
+	//size of the message received from sender
+	int msgSize = -1;
+
+	//filename received from sender
+	string recvFileNameStr = fileName;
 	
+	//append __recv at end of file
+	recvFileNameStr.append("__recv");
+
 	//open file for writing
-	FILE* fp = fopen(recvFileNamearray, "w");
+	FILE* fp = fopen(fileName, "w");
 
 	//number of received bytes
 	int numBytesRecv = 0;
 
-	//filename received from sender
-	string recvFileNameStr = recvFileNamearray;
-
-	//append __recv at end of file
-	recvFileNameStr.append("__recv");
 
 	//checks for erorrs
 	if(!fp)
@@ -112,7 +113,7 @@ void mainLoop()
 	message sndMsg;
 	message rcvMsg;
 	printf("...created message to store info...\n");
-	msgSize = 1;
+	msgSize = -1;	
 
 	//receives until sender sets to 0 (no more data to send) 
 	while(msgSize != 0)
@@ -157,6 +158,7 @@ void mainLoop()
 			fclose(fp);
 		}
 	}
+	return numBytesRecv;
 }
 
 void cleanUp(const int& shmid, const int& msqid, void* sharedMemPtr)
@@ -198,8 +200,10 @@ int main(int argc, char** argv)
 
 	//initialize
 	init(shmid, msqid, sharedMemPtr);
+	string fileName = recvFileName();
+	fprintf(stderr, "the number of bytes recieved is: %lu\n", mainLoop(fileName.c_str()));
 
-	mainLoop();
+	
 
 	//detach from shared memory segment and deallocate shared memory and message queue
 	cleanUp(shmid, msqid, sharedMemPtr);
